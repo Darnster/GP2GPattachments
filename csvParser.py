@@ -29,6 +29,7 @@ class csv_parser(object):
         self.dir = dir
         self.attachmentsize = float(attachmentsize * 1024 * 1024)
         self.output_file = open("%s_%s.csv" % (outputfile, attachmentsize), "w")
+        self.largeAttachment_count = 0
 
 
     def parse_dir(self):
@@ -48,6 +49,8 @@ class csv_parser(object):
         self.output_file.close()
         print("process completed...")
 
+        print("Count of attachments over %sMB = %s" % (float(self.attachmentsize / 1024 / 1024), self.largeAttachment_count))
+
     def parse_file(self, file):
         """
         Reads through each line in the current file
@@ -58,7 +61,6 @@ class csv_parser(object):
         csv_data = self.csv_file.readlines()
         for line in csv_data:
             self.parse_line(line)
-
 
 
     def parse_line(self, line):
@@ -91,6 +93,7 @@ class csv_parser(object):
                                              line[self.field_dict.get("content_type")],
                                              line[self.field_dict.get("compressed")])))
                 self.output_file.write("%s\n" % outputline)
+                self.largeAttachment_count +=1
         except TypeError:
             pass #to deal with header line!
         except ValueError:
@@ -98,5 +101,5 @@ class csv_parser(object):
 
 
 if __name__ == "__main__":
-    cp = csv_parser("C:\\dev_stuff\\gp2gp\\attachmentsdata\\", ',',5, "gp2gp_attachment_report_with_url_encoding")
+    cp = csv_parser("C:\\dev_stuff\\gp2gp\\attachmentsdata\\", ',',20, "gp2gp_attachment_report_with_url_encoding")
     cp.parse_dir()
