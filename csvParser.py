@@ -73,13 +73,13 @@ class csv_parser(object):
         try:
             if compressed == "FALSE":
                 if line[self.field_dict.get("content_type")] == "application/pdf":
-                    attSize = float(line[self.field_dict.get("length")]) * 1.12
+                    attSize = float(line[self.field_dict.get("length")]) * 0.88
                 elif line[self.field_dict.get("content_type")] == "image/tiff":
                     attSize = float(line[self.field_dict.get("length")]) * 0.78
                 elif line[self.field_dict.get("content_type")] == "image/png":
-                    attSize = float(line[self.field_dict.get("length")]) * 1.23
+                    attSize = float(line[self.field_dict.get("length")]) * 0.99
                 elif line[self.field_dict.get("content_type")] == "image/jpg":
-                    attSize = float(line[self.field_dict.get("length")]) * 1.02
+                    attSize = float(line[self.field_dict.get("length")]) * 0.82
                 else:
                     attSize = float(line[self.field_dict.get("length")])
             else:
@@ -101,5 +101,5 @@ class csv_parser(object):
 
 
 if __name__ == "__main__":
-    cp = csv_parser("C:\\dev_stuff\\gp2gp\\attachmentsdata\\", ',',20, "gp2gp_attachment_report_with_url_encoding")
+    cp = csv_parser("C:\\dev_stuff\\gp2gp\\attachmentsdata\\", ',',5, "gp2gp_attachment_report_with_base64_encoding")
     cp.parse_dir()

@@ -1,5 +1,7 @@
 import gzip, os, sys
-import urllib.parse
+#import urllib.parse
+import base64
+
 
 class gzip_utility(object):
 
@@ -23,8 +25,8 @@ class gzip_utility(object):
         """
         input = open(file, 'rb')
         s = input.read()
-        s = urllib.parse.quote(s)
-        s = bytes(s, "utf-8")
+        s = base64.b64encode(s)
+        #s = bytes(s, "utf-8")
         input.close()
 
         out = "%s_compressed.gz" % file
@@ -37,5 +39,5 @@ class gzip_utility(object):
         print("%s,%s,%s,%s" % (os.path.split(file)[1], in_file, out_file, comp_ratio))
 
 if __name__ == "__main__":
-    cp = gzip_utility("C:\\dev_stuff\\gp2gp\\my_large_files", [".jpg",".png"])
+    cp = gzip_utility("C:\\dev_stuff\\gp2gp\\my_large_files", [".png",".jpg"])
     cp.parse_dir()
