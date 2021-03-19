@@ -5,7 +5,7 @@ import string, sys, os
 class csv_parser(object):
     def __init__(self, dir, sep, attachmentsize, outputfile):
         """
-        Attempt to open source csv file and initialise class vars
+        Attempt to open output file and initialise class vars
         dir = base directory where files are located
         sep = separator for fields in the csv
         attachmentsize = size of file (in MB) that need to be filtered out (those larger than the size specified)
@@ -23,11 +23,12 @@ class csv_parser(object):
                      "content_type": 8,
                      "large_attachment": 9,
                      "length": 10,
-                     "original_base64,internal_id": 11
+                     "original_base64": 11,
+                     "internal_id": 12
             }
 
         self.dir = dir
-        self.attachmentsize = float(attachmentsize * 1024 * 1024)
+        self.attachmentsize = float(attachmentsize * 1024 * 1024) # convert to bytes
         self.output_file = open("%s_%s.csv" % (outputfile, attachmentsize), "w")
         self.largeAttachment_count = 0
 
